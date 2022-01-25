@@ -32,6 +32,7 @@ resource "aws_s3_bucket" "data" {
 
 
 resource "aws_s3_bucket_object" "data_object" {
+  # checkov:skip=BC_AWS_GENERAL_106: S3
   bucket = aws_s3_bucket.data.id
   key    = "customer-master.xlsx"
   source = "resources/customer-master.xlsx"
@@ -39,13 +40,13 @@ resource "aws_s3_bucket_object" "data_object" {
     Name        = "${local.resource_prefix.value}-customer-master"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "a68dc967bd56f70c2129dbd92228bc042399d374"
     git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_last_modified_at = "2022-01-25 13:59:45"
+    git_last_modified_by = "johndoe@example.com"
+    git_modifiers        = "johndoe/nimrodkor"
+    git_org              = "ivan-tresoldi"
+    git_repo             = "ivan-terragoat"
     yor_trace            = "a7f01cc7-63c2-41a8-8555-6665e5e39a64"
   })
 }
@@ -71,7 +72,15 @@ resource "aws_s3_bucket" "financials" {
     yor_trace            = "0e012640-b597-4e5d-9378-d4b584aea913"
   })
 
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
 }
+
 
 resource "aws_s3_bucket" "operations" {
   # bucket is not encrypted
