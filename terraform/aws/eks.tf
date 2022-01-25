@@ -41,20 +41,20 @@ resource aws_iam_role_policy_attachment "policy_attachment-AmazonEKSServicePolic
 }
 
 resource aws_vpc "eks_vpc" {
-	# checkov:skip=BC_AWS_LOGGING_9: VPC Flow Logs not needed here
+  # checkov:skip=BC_AWS_LOGGING_9: VPC Flow Logs not needed here
   cidr_block           = "10.10.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
   tags = merge({
     Name = "${local.resource_prefix.value}-eks-vpc"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "92e68b9dc6c4f86c21e9e2fafa6898b9fa8fb2a4"
     git_file             = "terraform/aws/eks.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_last_modified_at = "2022-01-25 13:53:35"
+    git_last_modified_by = "johndoe@example.com"
+    git_modifiers        = "johndoe/nimrodkor"
+    git_org              = "ivan-tresoldi"
+    git_repo             = "ivan-terragoat"
     yor_trace            = "1600ca6c-72f6-45c0-a71d-88e117e51d6b"
   })
 }
