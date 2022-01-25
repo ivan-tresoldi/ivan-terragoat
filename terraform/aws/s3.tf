@@ -99,6 +99,7 @@ resource "aws_s3_bucket" "operations" {
 }
 
 resource "aws_s3_bucket" "data_science" {
+	# checkov:skip=BC_AWS_NETWORKING_52: Explicit public access block not set
   # bucket is not encrypted
   bucket = "${local.resource_prefix.value}-data-science"
   acl    = "private"
