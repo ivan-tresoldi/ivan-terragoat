@@ -32,6 +32,7 @@ resource "aws_s3_bucket" "data" {
 
 
 resource "aws_s3_bucket_object" "data_object" {
+	# checkov:skip=BC_AWS_GENERAL_106: S3
   bucket = aws_s3_bucket.data.id
   key    = "customer-master.xlsx"
   source = "resources/customer-master.xlsx"
@@ -71,7 +72,15 @@ resource "aws_s3_bucket" "financials" {
     yor_trace            = "0e012640-b597-4e5d-9378-d4b584aea913"
   })
 
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
 }
+
 
 resource "aws_s3_bucket" "operations" {
   # bucket is not encrypted
