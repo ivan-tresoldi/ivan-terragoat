@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "data" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "server_side_encryption_configuration/[0]/rule/[0]/apply_server_side_encryption_by_default/[0]/sse_algorithm:aws:kms"
+        sse_algorithm = "Properties/BucketEncryption/ServerSideEncryptionConfiguration/[0]/ServerSideEncryptionByDefault/SSEAlgorithm:aws:kms"
       }
     }
   }
@@ -98,7 +98,6 @@ resource "aws_s3_bucket" "operations" {
 }
 
 resource "aws_s3_bucket" "data_science" {
-  # checkov:skip=BC_AWS_NETWORKING_52: Explicit public access block not set
   # bucket is not encrypted
   bucket = "${local.resource_prefix.value}-data-science"
   acl    = "private"
